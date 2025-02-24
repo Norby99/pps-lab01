@@ -19,7 +19,7 @@ public class DoorLock implements SmartDoorLock {
 
     @Override
     public boolean isLocked() {
-        return false;
+        return true;
     }
 
     @Override

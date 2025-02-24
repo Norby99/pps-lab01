@@ -4,15 +4,18 @@ public class DoorLock implements SmartDoorLock {
 
     private boolean unlockState = true;
     private String pin = "";
+    private static final int PIN_LENGHT;
 
     @Override
     public void setPin(String pin) {
-        if (pin.length() != 4) {
+        int intPIN;
+
+        if (pin.length() != PIN_LENGHT) {
             return;
         }
 
         try {
-            int intPIN = Integer.parseInt(pin);
+            intPIN = Integer.parseInt(pin);
         } catch (NumberFormatException e) {
             return;
         }

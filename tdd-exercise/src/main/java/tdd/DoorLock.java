@@ -29,7 +29,9 @@ public class DoorLock implements SmartDoorLock {
 
     @Override
     public void unlock(String pin) {
-        this.unlockState = true;
+        if (this.pin.equals(pin)){
+            this.unlockState = true;
+        }
     }
 
     @Override

@@ -14,9 +14,17 @@ class SimpleBankAccountTest {
     private BankAccount bankAccount;
 
     @BeforeEach
-    void beforeEach(){
-        accountHolder = new AccountHolder("Mario", "Rossi", 1);
-        bankAccount = new SimpleBankAccount(accountHolder, 0);
+    void beforeEach() {
+        final String accountHolderName = "Mario";
+        final String accountHolderSurname = "Rossi";
+        final int accountHolderId = 1;
+
+        final int initialBalance = 0;
+
+        accountHolder = new AccountHolder(  accountHolderName,
+                                            accountHolderSurname,
+                                            accountHolderId);
+        bankAccount = new SimpleBankAccount(accountHolder, initialBalance);
     }
 
     @Test
@@ -26,28 +34,43 @@ class SimpleBankAccountTest {
 
     @Test
     void testDeposit() {
-        bankAccount.deposit(accountHolder.getId(), 100);
-        assertEquals(100, bankAccount.getBalance());
+        final int deposit = 100;
+
+        bankAccount.deposit(accountHolder.getId(), deposit);
+        assertEquals(deposit, bankAccount.getBalance());
     }
 
     @Test
     void testWrongDeposit() {
-        bankAccount.deposit(accountHolder.getId(), 100);
-        bankAccount.deposit(2, 50);
-        assertEquals(100, bankAccount.getBalance());
+        final int deposit1 = 100;
+        final int deposit2 = 50;
+        final int userId = 2;
+
+        bankAccount.deposit(accountHolder.getId(), deposit1);
+        bankAccount.deposit(userId, deposit2);
+        assertEquals(deposit2, bankAccount.getBalance());
     }
 
     @Test
     void testWithdraw() {
-        bankAccount.deposit(accountHolder.getId(), 100);
-        bankAccount.withdraw(accountHolder.getId(), 70);
-        assertEquals(30, bankAccount.getBalance());
+        final int deposit = 100;
+        final int withdraw = 70;
+        final int expectedBalance = deposit - withdraw;
+
+        bankAccount.deposit(accountHolder.getId(), deposit);
+        bankAccount.withdraw(accountHolder.getId(), withdraw);
+        assertEquals(expectedBalance, bankAccount.getBalance());
     }
 
     @Test
     void testWrongWithdraw() {
-        bankAccount.deposit(accountHolder.getId(), 100);
-        bankAccount.withdraw(2, 70);
-        assertEquals(100, bankAccount.getBalance());
+        final int deposit = 100;
+        final int withdraw = 70;
+        final int userId = 2;
+        final int expectedBalance = 100;
+
+        bankAccount.deposit(accountHolder.getId(), deposit);
+        bankAccount.withdraw(userId, withdraw);
+        assertEquals(expectedBalance, bankAccount.getBalance());
     }
 }

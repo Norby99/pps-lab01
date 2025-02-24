@@ -3,19 +3,37 @@ package tdd;
 public class DoorLock implements SmartDoorLock {
 
     private boolean unlockState = true;
+    private String pin = "";
 
     @Override
-    public void setPin(int pin) {
+    public void setPin(String pin) {
+        if (pin.length() != 4) {
+            return;
+        }
 
+        try {
+            int intPIN = Integer.parseInt(pin);
+        } catch (NumberFormatException e) {
+            return;
+        }
+
+        if (Integer.parseInt(pin) < 0) {
+            return;
+        }
+
+        this.pin = pin;
     }
 
     @Override
-    public void unlock(int pin) {
+    public void unlock(String pin) {
         this.unlockState = true;
     }
 
     @Override
-    public void lock() {
+    public void lock() throws IllegalAccessException {
+        if (this.pin.isEmpty()) {
+            throw new IllegalAccessException();
+        }
         this.unlockState = false;
     }
 

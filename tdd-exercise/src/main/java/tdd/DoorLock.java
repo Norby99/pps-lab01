@@ -6,6 +6,7 @@ public class DoorLock implements SmartDoorLock {
     private String pin = "";
     private static final int PIN_LENGHT = 4;
     private int failedAttempts = 0;
+    private static final int MAX_ATTEMPTS = 5;
 
     @Override
     public void setPin(String pin) {
@@ -52,12 +53,12 @@ public class DoorLock implements SmartDoorLock {
 
     @Override
     public boolean isBlocked() {
-        return true;
+        return MAX_ATTEMPTS < this.failedAttempts;
     }
 
     @Override
     public int getMaxAttempts() {
-        return 0;
+        return MAX_ATTEMPTS;
     }
 
     @Override

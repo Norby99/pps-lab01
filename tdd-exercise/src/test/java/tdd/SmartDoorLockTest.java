@@ -77,4 +77,14 @@ public class SmartDoorLockTest {
         }
         assertFalse(this.doorLock.isBlocked());
     }
+
+    void testUnlockDoorAfterBlock() {
+        this.doorLock.setPin(PIN);
+        assertDoesNotThrow(() -> this.doorLock.lock());
+        for (int i = 0; i < MAX_ATTEMPTS-1; i++) {
+            this.doorLock.unlock(FAKE_PIN);
+        }
+        this.doorLock.unlock(PIN);
+        assertFalse(this.doorLock.isLocked());
+    }
 }

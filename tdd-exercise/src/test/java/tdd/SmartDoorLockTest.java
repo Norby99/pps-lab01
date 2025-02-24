@@ -88,4 +88,19 @@ public class SmartDoorLockTest {
         this.doorLock.unlock(PIN);
         assertFalse(this.doorLock.isLocked());
     }
+
+    @Test
+    void testResetAfterSetPin() {
+        this.doorLock.setPin(PIN);
+        for (int i = 0; i < MAX_ATTEMPTS; i++) {
+            this.doorLock.unlock(FAKE_PIN);
+        }
+
+        this.doorLock.reset();
+        assertAll(
+                () -> assertEquals(0, this.doorLock.getFailedAttempts()),
+                () -> assertFalse(this.doorLock.isBlocked()),
+                () -> assertThrows(IllegalAccessException.class, () -> this.doorLock.lock())
+        );
+    }
 }

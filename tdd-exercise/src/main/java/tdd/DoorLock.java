@@ -11,7 +11,7 @@ public class DoorLock implements SmartDoorLock {
 
     @Override
     public void unlock(int pin) {
-
+        this.unlockState = true;
     }
 
     @Override

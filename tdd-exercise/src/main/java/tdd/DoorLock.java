@@ -4,7 +4,7 @@ public class DoorLock implements SmartDoorLock {
 
     private boolean unlockState = true;
     private String pin = "";
-    private static final int PIN_LENGHT;
+    private static final int PIN_LENGHT = 4;
 
     @Override
     public void setPin(String pin) {

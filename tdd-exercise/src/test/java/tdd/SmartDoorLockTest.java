@@ -15,7 +15,13 @@ public class SmartDoorLockTest {
     }
 
     @Test
-    void testLockDoor() {
+    void testInitialState() {
         assertTrue(this.doorLock.isLocked());
+    }
+
+    @Test
+    void testLock() {
+        this.doorLock.lock();
+        assertFalse(this.doorLock.isLocked());
     }
 }

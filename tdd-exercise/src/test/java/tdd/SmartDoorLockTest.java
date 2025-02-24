@@ -11,6 +11,7 @@ public class SmartDoorLockTest {
     private static final String PIN = "1234";
     private static final String FAKE_PIN = "0000";
     private static final int NUMBER_ATTEMPTS = 3;
+    private static final int MAX_ATTEMPTS = 5;
 
     @BeforeEach
     public void beforeEach() {
@@ -57,5 +58,14 @@ public class SmartDoorLockTest {
             this.doorLock.unlock(FAKE_PIN);
         }
         assertEquals(NUMBER_ATTEMPTS, this.doorLock.getFailedAttempts());
+    }
+
+    @Test
+    void testBlockDoor() {
+        this.doorLock.setPin(PIN);
+        for (int i = 0; i < MAX_ATTEMPTS; i++) {
+            this.doorLock.unlock(FAKE_PIN);
+        }
+        assertTrue(this.doorLock.isBlocked());
     }
 }
